@@ -65,7 +65,7 @@ namespace Autok
         {
             if (auto != null)
             {
-                /*originalLicensplate = auto.Rendszam;
+                originalLicensplate = auto.Rendszam;
                 inputs[0].Text = originalLicensplate;
                 inputs[1].Text = auto.Make;
                 inputs[2].Text = auto.Model;
@@ -82,12 +82,17 @@ namespace Autok
                 inputs[6].Text = auto.KM.ToString();
                 inputs[7].Text = auto.Displacement.ToString();
                 inputs[8].Text = auto.Weight.ToString();
-                inputs[9].Text = auto.Power.ToString();*/
+                inputs[9].Text = auto.Power.ToString();
                 ADD.Text = "Módosítás";
                 ADD.Click += (s, e) => {
                     updateAuto();
                     data.mydb.updateCar(auto, originalLicensplate);
+                    this.Close();
                 };
+            }
+            else
+            {
+                addButtonClick();
             }
         }
         void updateAuto() {
@@ -143,18 +148,20 @@ namespace Autok
         void makeNewAuto() {
             auto = new Autok();
         }
-        void makeAddButton()
-        {
-            
-            ADD.Text = "Hozzáadás";
-            Controls.Add(ADD);
-            ADD.Location = new Point(90, 20 + inputs.Count * 40);
+        void addButtonClick() {
             ADD.Click += (s, e) => {
                 makeNewAuto();
                 updateAuto();
                 data.mydb.InsertCar(auto);
                 this.Close();
             };
+        }
+        void makeAddButton()
+        {
+            
+            ADD.Text = "Hozzáadás";
+            Controls.Add(ADD);
+            ADD.Location = new Point(90, 20 + inputs.Count * 40);
         }
     }
 }
